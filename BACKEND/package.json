@@ -1,0 +1,34 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "this platform is dedicated to farmer",
+  "license": "ISC",
+  "author": "uttam yadav",
+  "type": "module",
+  "main": "src/app.js",
+  "scripts": {
+    "dev": "nodemon src/app.js",
+    "start": "node src/app.js"
+  },
+  "dependencies": {
+    "@google/genai": "^1.49.0",
+    "@google/generative-ai": "^0.24.1",
+    "bcrypt": "^6.0.0",
+    "cloudinary": "^2.8.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.1.1",
+    "multer": "^2.0.2",
+    "nodemailer": "^8.0.0",
+    "openai": "^6.18.0",
+    "razorpay": "^2.9.6",
+    "sib-api-v3-sdk": "^8.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}

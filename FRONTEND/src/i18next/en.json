@@ -1,0 +1,92 @@
+{
+  "navbar": {
+    "logo": "FarmLink",
+    "home": "Home",
+    "about": "About",
+    "chatbot": "Chatbot",
+    "services": "Services",
+    "contact": "Contact",
+    "loginRegister": "Login/Register",
+    "language": "Language"
+  },
+  "hero": {
+    "future": "🚀 The Future of Indian Agriculture",
+    "title": "Transforming the Way <span>Farmers Sell</span>",
+    "subtitle": "An innovative platform that bridges the gap between farmers and buyers, promoting direct transactions and better earnings.",
+    "exploreNow": "Explore Now",
+    "getStarted": "Get Started 🌾",
+    "goToDashboard": "Go to Dashboard 🚀",
+    "marketStatus": "Market Status",
+    "growth": "Growth +24%",
+    "ricePrice": "Rice +12.5%"
+  },
+  "marketPrices": {
+    "title": "Live Market Trends",
+    "wheat": "Wheat",
+    "rice": "Rice",
+    "potato": "Potato",
+    "tomato": "Tomato",
+    "onion": "Onion",
+    "priceSuffix": "qt"
+  },
+  "timeline": {
+    "title": "From Farm to Fork in 3 Steps",
+    "subtitle": "We simplify the supply chain so you focus on what matters—growing and selling.",
+    "step1Title": "Register & List",
+    "step1Desc": "Create a profile and list your crops with photos and prices.",
+    "step2Title": "Connect & Negotiate",
+    "step2Desc": "Buyers contact you directly via chat. Agree on terms securely.",
+    "step3Title": "Deliver & Earn",
+    "step3Desc": "Ship your produce and receive instant payments."
+  },
+  "ecosystem": {
+    "title": "Tools for Modern Farming",
+    "subtitle": "Our Ecosystem",
+    "directSelling": "Direct Selling",
+    "directSellingDesc": "List crops at your price. Zero commission fees. 100% Transparency.",
+    "govtSchemes": "Govt Schemes",
+    "govtSchemesDesc": "Stay updated with latest subsidies and apply directly through the portal.",
+    "aiAssistant": "AI Assistant",
+    "aiAssistantDesc": "Detect crop diseases and get weather updates in your local language.",
+    "smartLogistics": "Smart Logistics",
+    "smartLogisticsDesc": "Track orders live and manage payments with a secure dashboard."
+  },
+  "stats": {
+    "activeFarmers": "Active Farmers",
+    "transactions": "Transactions",
+    "govtSchemes": "Govt Schemes",
+    "support": "Support",
+    "farmersConnected": "Farmers Connected",
+    "statesCovered": "States Covered",
+    "satisfactionRate": "Satisfaction Rate"
+  },
+  "cta": {
+    "title": "Ready to harvest better profits?",
+    "subtitle": "Join thousands of Indian farmers who are getting better prices and smarter insights every day.",
+    "joinNow": "Join Now - It's Free",
+    "contactSupport": "Contact Support",
+    "goToDashboard": "Go to Dashboard"
+  },
+  "about": {
+    "title": "About <span>FarmLink</span>",
+    "description": "We are dedicated to transforming agriculture through innovation, connecting farmers with cutting-edge technology, government support, and sustainable farming practices for a prosperous future."
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "email": "support@farmlink.com",
+    "phone": "+91 1800-KISHAN-HELP",
+    "help": "help@farmlink.com",
+    "certifications": "Certifications",
+    "quickLinks": "Quick Links",
+    "getInTouch": "Get In Touch"
+  },
+  "footer": {
+    "logo": "FarmLink",
+    "description": "Empowering farmers with technology and knowledge for sustainable agriculture and improved livelihoods across India.",
+    "copyright": "© 2025 FarmLink. Made with 💚 in India.",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "careers": "Careers",
+    "sitemap": "Sitemap"
+  }
+}
