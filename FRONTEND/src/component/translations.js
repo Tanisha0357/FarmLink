@@ -1,4 +1,4 @@
-// src/utils/translations.js
+
 export const translations = {
   en: {
     brand: "AgriConnect",

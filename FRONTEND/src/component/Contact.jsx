@@ -1,4 +1,3 @@
-// ContactUs.jsx
 import React, { useState } from "react";
 
 const Contact = () => {
@@ -14,7 +13,6 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // You can integrate backend API here for sending messages
     alert("Message sent! We will contact you shortly.");
     setFormData({ name: "", email: "", message: "" });
   };
@@ -28,14 +26,13 @@ const Contact = () => {
       </p>
 
       <div className="w-full max-w-4xl bg-white rounded-xl shadow-lg p-8 flex flex-col md:flex-row gap-10">
-        {/* Contact Info */}
         <div className="md:w-1/2 space-y-6">
           <h2 className="text-2xl font-semibold text-green-700">Get in Touch</h2>
           <p className="text-gray-600">
             <strong>Phone:</strong> +91 9876543210
           </p>
           <p className="text-gray-600">
-            <strong>Email:</strong> <a href="mailto:kishansetu.care@gmail.com" className="text-green-700 underline">kishansetu.care@gmail.com</a>
+            <strong>Email:</strong> <a href="mailto:kishansetu.care@gmail.com" className="text-green-700 underline">farmlink.care@gmail.com</a>
           </p>
          
           <p className="text-gray-600">
@@ -50,8 +47,6 @@ const Contact = () => {
             </ul>
           </div>
         </div>
-
-        {/* Contact Form */}
         <div className="md:w-1/2">
           <h2 className="text-2xl font-semibold text-green-700 mb-4">Send a Message</h2>
           <form onSubmit={handleSubmit} className="space-y-4">

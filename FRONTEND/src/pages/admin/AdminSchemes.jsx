@@ -84,8 +84,6 @@ const AdminSchemes = () => {
       toast.error("Failed to delete scheme");
     }
   };
-
-  // Filter schemes based on search
   const filteredSchemes = schemes.filter((s) =>
     s.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -96,7 +94,6 @@ const AdminSchemes = () => {
       <Toaster position="top-right" />
 
       <div className="flex-1 p-8">
-        {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
           <div>
             <h1 className="text-3xl font-bold text-gray-800">Government Schemes</h1>
@@ -109,8 +106,6 @@ const AdminSchemes = () => {
             <Plus className="w-5 h-5 mr-2" /> Add New Scheme
           </button>
         </div>
-
-        {/* Search Bar */}
         <div className="bg-white p-4 rounded-xl shadow-sm mb-6 flex items-center border border-gray-100">
           <Search className="text-gray-400 w-5 h-5 mr-3" />
           <input
@@ -121,8 +116,6 @@ const AdminSchemes = () => {
             className="flex-1 outline-none text-gray-700"
           />
         </div>
-
-        {/* Loading State */}
         {loading ? (
           <div className="flex justify-center items-center h-64">
             <Loader2 className="w-10 h-10 animate-spin text-green-600" />
@@ -188,12 +181,9 @@ const AdminSchemes = () => {
           </div>
         )}
       </div>
-
-      {/* Add Scheme Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex justify-center items-center p-4">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200">
-            {/* Modal Header */}
             <div className="bg-gray-50 px-6 py-4 border-b border-gray-100 flex justify-between items-center">
               <h2 className="text-lg font-bold text-gray-800">Add New Scheme</h2>
               <button
@@ -203,8 +193,6 @@ const AdminSchemes = () => {
                 <X className="w-6 h-6" />
               </button>
             </div>
-
-            {/* Modal Body */}
             <form onSubmit={handleAddScheme} className="p-6 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Scheme Title</label>

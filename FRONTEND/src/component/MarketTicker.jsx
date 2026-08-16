@@ -2,7 +2,6 @@ import React from "react";
 import "./MarketTicker.css";
 
 const MarketTicker = ({ items }) => {
-  // We duplicate the items to create a seamless loop
   const displayItems = [...items, ...items];
 
   return (

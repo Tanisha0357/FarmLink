@@ -37,9 +37,6 @@ const MyOrders = () => {
       setLoading(false);
     }
   };
-
-  // --- Helpers ---
-
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("en-IN", {
       year: "numeric",
@@ -47,8 +44,6 @@ const MyOrders = () => {
       day: "numeric",
     });
   };
-
-  // Status Badge Logic
   const getStatusConfig = (status) => {
     switch (status) {
       case "confirmed": return { color: "bg-green-100 text-green-700", icon: CheckCircle, label: "Confirmed" };
@@ -57,8 +52,6 @@ const MyOrders = () => {
       default: return { color: "bg-yellow-100 text-yellow-700", icon: Clock, label: "Pending" };
     }
   };
-
-  // Professional Invoice Generator
   const handleDownloadInvoice = (order) => {
     const farmer = order.farmerId || {};
     const crop = order.cropId || {};
@@ -165,8 +158,6 @@ const MyOrders = () => {
     newWindow.document.close();
     setTimeout(() => newWindow.print(), 500);
   };
-
-  // Filter Logic
   const filteredOrders = orders.filter((order) => {
     const matchesSearch = order.cropId?.cropName?.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = statusFilter === "all" ? true : order.status === statusFilter;
@@ -176,8 +167,6 @@ const MyOrders = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-10 px-4 sm:px-6">
       <div className="max-w-5xl mx-auto">
-        
-        {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">My Orders</h1>
@@ -199,8 +188,6 @@ const MyOrders = () => {
             ))}
           </div>
         </div>
-
-        {/* Search Bar */}
         <div className="relative mb-6">
           <input
             type="text"
@@ -211,16 +198,12 @@ const MyOrders = () => {
           />
           <Search className="absolute left-3 top-3.5 text-gray-400 w-5 h-5" />
         </div>
-
-        {/* Loading State */}
         {loading && (
           <div className="text-center py-20">
             <div className="animate-spin w-10 h-10 border-4 border-green-500 border-t-transparent rounded-full mx-auto mb-4"></div>
             <p className="text-gray-500">Loading your orders...</p>
           </div>
         )}
-
-        {/* Empty State */}
         {!loading && filteredOrders.length === 0 && (
           <div className="bg-white rounded-xl shadow-sm p-12 text-center border border-gray-100">
             <div className="bg-gray-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -230,8 +213,6 @@ const MyOrders = () => {
             <p className="text-gray-500 mt-1">Try changing your filters or browse the marketplace.</p>
           </div>
         )}
-
-        {/* Order List */}
         <div className="space-y-4">
           {filteredOrders.map((order) => {
             const statusStyle = getStatusConfig(order.status);
@@ -242,7 +223,6 @@ const MyOrders = () => {
                 key={order._id} 
                 className="bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden"
               >
-                {/* Card Header */}
                 <div className="bg-gray-50 px-6 py-4 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                   <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-sm text-gray-500">
                     <div>
@@ -268,16 +248,12 @@ const MyOrders = () => {
                       </button>
                   </div>
                 </div>
-
-                {/* Card Body */}
                 <div className="p-6">
                   <div className="flex flex-col md:flex-row gap-6">
-                    {/* Image / Icon */}
+                  
                     <div className="w-20 h-20 bg-green-50 rounded-xl flex items-center justify-center flex-shrink-0">
                       <Package className="w-8 h-8 text-green-600" />
                     </div>
-
-                    {/* Details */}
                     <div className="flex-1">
                       <div className="flex flex-col md:flex-row justify-between items-start">
                         <div>
@@ -298,16 +274,11 @@ const MyOrders = () => {
                             </div>
                           </div>
                         </div>
-
-                        {/* Status Badges */}
                         <div className="mt-4 md:mt-0 flex flex-col items-end gap-2">
-                           {/* Delivery Status */}
                            <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide ${statusStyle.color}`}>
                               <StatusIcon className="w-3.5 h-3.5" />
                               {statusStyle.label}
                            </div>
-
-                           {/* Payment Status */}
                            <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide border ${
                               order.paymentStatus === 'paid' 
                                 ? "bg-white border-green-200 text-green-700" 

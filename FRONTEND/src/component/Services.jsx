@@ -29,10 +29,7 @@ const Services = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  // Helper to format date
-  const formatDate = (dateString) => {
+  };  const formatDate = (dateString) => {
     if (!dateString) return "No Deadline";
     return new Date(dateString).toLocaleDateString("en-IN", {
       day: "numeric",
@@ -40,14 +37,10 @@ const Services = () => {
       year: "numeric",
     });
   };
-
-  // Helper to check if expired
   const isExpired = (dateString) => {
     if (!dateString) return false;
     return new Date(dateString) < new Date();
   };
-
-  // Filter logic
   const filteredSchemes = schemes.filter((s) => 
     s.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
     s.description.toLowerCase().includes(searchTerm.toLowerCase())
@@ -55,8 +48,6 @@ const Services = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 pb-12">
-      
-      {/* 🟢 Hero Section */}
       <div className="bg-green-700 text-white py-12 px-6">
         <div className="max-w-6xl mx-auto text-center">
           <h1 className="text-3xl md:text-4xl font-bold mb-4 flex items-center justify-center gap-3">
@@ -68,8 +59,6 @@ const Services = () => {
           </p>
         </div>
       </div>
-
-      {/* 🔍 Search Bar */}
       <div className="max-w-6xl mx-auto px-6 -mt-6">
         <div className="bg-white p-4 rounded-xl shadow-lg flex items-center border border-gray-100">
           <Search className="w-6 h-6 text-gray-400 mr-3" />
@@ -82,8 +71,6 @@ const Services = () => {
           />
         </div>
       </div>
-
-      {/* 📦 Content Grid */}
       <div className="max-w-6xl mx-auto px-6 mt-10">
         
         {loading ? (
@@ -107,7 +94,6 @@ const Services = () => {
                   key={scheme._id}
                   className="group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-gray-100 overflow-hidden transition-all duration-300 flex flex-col"
                 >
-                  {/* Card Header */}
                   <div className="p-6 flex-1">
                     <div className="flex justify-between items-start mb-4">
                       <div className="bg-green-50 p-3 rounded-xl">
@@ -132,8 +118,6 @@ const Services = () => {
                       {scheme.description}
                     </p>
                   </div>
-
-                  {/* Card Footer */}
                   <div className="bg-gray-50 px-6 py-4 border-t border-gray-100">
                     <div className="flex items-center text-sm text-gray-500 mb-4">
                       <Calendar className="w-4 h-4 mr-2 text-gray-400" />

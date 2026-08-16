@@ -113,8 +113,6 @@ const FarmerDashboard = () => {
     return <div className="text-center mt-10">Failed to load data.</div>;
 
   const { user, crops, totalCrops, activeCrops, earnings } = dashboard;
-  
-  // Try to find avatar in user object or farmerProfile object
   const userAvatar = user?.Avatar || dashboard.farmerProfile?.avatar;
 
   const filteredCrops = filter === "all"
@@ -123,13 +121,9 @@ const FarmerDashboard = () => {
 
  return (
     <div className="min-h-screen bg-gray-50 pb-12">
-      
-      {/* 🔝 HEADER SECTION */}
       <div className="bg-white border-b border-gray-200 sticky top-0 z-30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            
-            {/* ✅ LEFT: Welcome Message & Title */}
             <div className="flex flex-col">
               <h1 className="text-xl sm:text-2xl font-extrabold text-gray-900 tracking-tight flex items-center gap-2">
                 Welcome back, <span className="text-green-600">{user.Name?.split(" ")[0]}</span>! 👋
@@ -139,11 +133,7 @@ const FarmerDashboard = () => {
                 Farmer Dashboard
               </p>
             </div>
-
-            {/* ✅ RIGHT: Actions & Profile Menu */}
             <div className="flex items-center gap-3 sm:gap-6">
-              
-              {/* Action Buttons (Hidden on super small screens, visible on md+) */}
               <div className="hidden md:flex items-center gap-3">
                 <button
                   onClick={() => navigate("/farmers/orders")}
@@ -160,14 +150,9 @@ const FarmerDashboard = () => {
                   Add Crop
                 </button>
               </div>
-
-              {/* Divider Line */}
               <div className="h-8 w-px bg-gray-200 hidden md:block"></div>
-
-              {/* ✅ PROFILE & MENU SECTION */}
               <div className="relative flex items-center gap-3" ref={dropdownRef}>
                 
-                {/* Avatar */}
                 <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full p-0.5 border-2 border-green-100 bg-white">
                    <div className="w-full h-full rounded-full overflow-hidden bg-gray-100 flex items-center justify-center">
                     {userAvatar ? (
@@ -181,8 +166,6 @@ const FarmerDashboard = () => {
                     )}
                    </div>
                 </div>
-
-                {/* 3-Dots Button */}
                 <button
                   onClick={() => setProfileOpen(!profileOpen)}
                   className={`w-9 h-9 flex items-center justify-center rounded-full transition-all duration-200 ${
@@ -193,18 +176,12 @@ const FarmerDashboard = () => {
                 >
                   <MoreVertical size={18} />
                 </button>
-
-                {/* 🔽 DROPDOWN MENU */}
                 {profileOpen && (
                   <div className="absolute right-0 top-14 w-56 bg-white shadow-xl rounded-2xl border border-gray-100 z-50 animate-in fade-in zoom-in-95 duration-200 origin-top-right overflow-hidden">
-                    
-                    {/* User Info (Mobile Only) */}
                     <div className="md:hidden px-4 py-3 bg-gray-50 border-b border-gray-100">
                       <p className="text-sm font-bold text-gray-900">{user.Name}</p>
                       <p className="text-xs text-gray-500 truncate">{user.Email || "Farmer"}</p>
                     </div>
-
-                    {/* Menu Items */}
                     <div className="p-1.5">
                       <button
                         onClick={() => navigate("/farmers/profile", { state: { mode: "edit" } })}
@@ -212,8 +189,6 @@ const FarmerDashboard = () => {
                       >
                         <Edit size={16} className="text-green-600" /> Edit Profile
                       </button>
-
-                      {/* Mobile Only Buttons inside menu */}
                       <button
                         onClick={() => navigate("/farmers/add-crop")}
                         className="md:hidden w-full text-left px-3 py-2.5 hover:bg-gray-50 text-gray-700 text-sm font-medium flex items-center gap-3 transition-colors rounded-lg"
@@ -246,16 +221,13 @@ const FarmerDashboard = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-        
-        {/* 📊 Stats Grid */}
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
           <StatCard title="Total Listings" value={totalCrops} icon={Sprout} color="green" subText="Lifetime crops added" />
           <StatCard title="Active Crops" value={activeCrops} icon={Package} color="blue" subText="Currently in marketplace" />
           <StatCard title="Crops Sold" value={totalCrops - activeCrops} icon={TrendingUp} color="purple" subText="Completed sales" />
           <StatCard title="Total Earnings" value={`₹ ${earnings?.toLocaleString() || 0}`} icon={IndianRupee} color="yellow" subText="Revenue generated" />
         </div>
-
-        {/* 🌱 Listings & Filter */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-800 flex items-center">
             <Filter className="w-5 h-5 mr-2 text-gray-500" />
@@ -279,8 +251,6 @@ const FarmerDashboard = () => {
             ))}
           </div>
         </div>
-
-        {/* 🌾 Grid */}
         {filteredCrops.length === 0 ? (
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-12 text-center">
             <div className="bg-gray-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">

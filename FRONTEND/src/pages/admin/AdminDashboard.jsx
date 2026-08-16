@@ -92,8 +92,6 @@ const AdminDashboard = () => {
       toast.error("Failed to delete scheme");
     }
   };
-
-  // Reusable Stat Card Component
   const StatCard = ({ title, value, icon: Icon, colorClass, bgClass }) => (
     <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow flex items-center justify-between">
       <div>
@@ -123,8 +121,6 @@ const AdminDashboard = () => {
       <Toaster position="top-right" />
 
       <div className="flex-1 p-8 h-screen overflow-y-auto">
-        
-        {/* Header */}
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900 flex items-center">
             <LayoutDashboard className="mr-3 text-green-600" /> 
@@ -132,8 +128,6 @@ const AdminDashboard = () => {
           </h1>
           <p className="text-gray-500 mt-1 ml-9">Welcome back, Admin. Here's what's happening today.</p>
         </div>
-
-        {/* 📊 Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
           <StatCard 
             title="Total Users" 
@@ -164,11 +158,7 @@ const AdminDashboard = () => {
             bgClass="bg-yellow-50"
           />
         </div>
-
-        {/* Schemes Section - Split Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
-          {/* LEFT: Existing Schemes List */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 h-full flex flex-col">
               <div className="flex items-center justify-between mb-6">

@@ -10,7 +10,7 @@ import {
   Loader2 
 } from "lucide-react";
 import { getBuyerProfile, setBuyerProfile } from "../../Services/buyerApi";
-import api from "../../Services/Api"; // Import generic api if needed for user details fallback
+import api from "../../Services/Api"; 
 
 const BuyerProfile = () => {
   const navigate = useNavigate();
@@ -18,9 +18,9 @@ const BuyerProfile = () => {
 
   // State
   const [formData, setFormData] = useState({
-    Name: "",       // Controller allows updating Name
-    PhoneNo: "",    // Controller allows updating Phone
-    Address: "",    // Controller expects Address
+    Name: "",      
+    PhoneNo: "",   
+    Address: "",   
   });
 
   const [email, setEmail] = useState(""); // Email is usually read-only
@@ -35,31 +35,19 @@ const BuyerProfile = () => {
   const checkExistingProfile = async () => {
     try {
       setFetching(true);
-      
-      // We try to get the profile. 
-      // Note: Your controller throws 404 if not found, so we catch that.
+  
       const res = await getBuyerProfile().catch(err => {
-        // If 404, it means profile doesn't exist yet, but we need User info.
-        // We can fetch basic user info from a different endpoint or use local storage
-        // Assuming your 'getBuyerProfile' might fail, let's look at the error response
         return err.response; 
       });
 
-      const data = res?.data?.data; // The payload from ApiResponse
-
-      // LOGIC: If profile exists (has an ID or Address) AND not editing -> Dashboard
+      const data = res?.data?.data; 
       if (data && data.Address && location.state?.mode !== "edit") {
          navigate("/buyers/dashboard");
          return;
       }
 
-      // Populate Form Data
       if (data) {
-        // Data usually contains { _id, userId: { Name, EmailId... }, Address: ... }
-        // OR if it's the 404 case, we might need to rely on what 'req.user' would return 
-        // from a "getUser" endpoint. 
-        
-        // If data.userId is populated object:
+
         const userObj = data.userId || {};
         
         setFormData({
@@ -69,9 +57,6 @@ const BuyerProfile = () => {
         });
         setEmail(userObj.EmailId || "");
       } else {
-        // If completely new (404), try to fetch basic user details to pre-fill Name/Email
-        // This part depends on if you have a /users/current endpoint. 
-        // For now, we leave blank or rely on localStorage.
         const userStr = localStorage.getItem("user");
         if(userStr) {
             const u = JSON.parse(userStr);
@@ -82,7 +67,6 @@ const BuyerProfile = () => {
 
     } catch (error) {
       console.error("Profile check error:", error);
-      // Fallback: load from localStorage if API fails (e.g. 404 profile not found)
       const userStr = localStorage.getItem("user");
       if(userStr) {
           const u = JSON.parse(userStr);
@@ -100,8 +84,6 @@ const BuyerProfile = () => {
   const handleSave = async (e) => {
     e.preventDefault();
     setMessage({ type: "", text: "" });
-
-    // Client-side validation matching controller constraints
     if (!formData.Address || formData.Address.trim().length < 3) {
       setMessage({ type: "error", text: "Address must be at least 3 characters." });
       return;
@@ -109,8 +91,6 @@ const BuyerProfile = () => {
 
     try {
       setLoading(true);
-
-      // Matches controller: { Name, PhoneNo, Address }
       await setBuyerProfile({
         Name: formData.Name,
         PhoneNo: formData.PhoneNo,
@@ -118,8 +98,6 @@ const BuyerProfile = () => {
       });
 
       setMessage({ type: "success", text: "Profile updated successfully!" });
-      
-      // Update local storage name if changed, just for UI consistency
       const userStr = localStorage.getItem("user");
       if(userStr) {
           const u = JSON.parse(userStr);
@@ -152,8 +130,6 @@ const BuyerProfile = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 sm:p-6">
       <div className="bg-white shadow-xl rounded-2xl w-full max-w-2xl overflow-hidden border border-gray-100">
-        
-        {/* HEADER */}
         <div className="bg-green-600 p-6 text-white flex justify-between items-center">
           <div>
             <h1 className="text-2xl font-bold flex items-center gap-2">
@@ -163,7 +139,6 @@ const BuyerProfile = () => {
               Complete your profile to access the marketplace
             </p>
           </div>
-          {/* Show back button only if in edit mode (implies dashboard access exists) */}
           {location.state?.mode === "edit" && (
             <button 
               onClick={() => navigate("/buyers/dashboard")}
@@ -185,8 +160,6 @@ const BuyerProfile = () => {
               {message.text}
             </div>
           )}
-
-          {/* Read-Only Field: Email (Since controller doesn't update email) */}
           <div className="mb-6 bg-blue-50 p-4 rounded-lg border border-blue-100 flex items-center gap-3">
              <div className="bg-white p-2 rounded-full text-blue-600">
                 <Mail size={18} />
@@ -196,11 +169,7 @@ const BuyerProfile = () => {
                 <p className="text-gray-700 font-medium">{email || "N/A"}</p>
              </div>
           </div>
-
-          {/* Editable Form */}
           <form onSubmit={handleSave} className="space-y-5">
-            
-            {/* Personal Details (User Model) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-1  items-center gap-1">
@@ -229,8 +198,6 @@ const BuyerProfile = () => {
                   />
                 </div>
             </div>
-
-            {/* Address (Buyer Model) */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1  items-center gap-1">
                 <MapPin className="w-4 h-4 text-gray-400" /> Complete Address
@@ -247,8 +214,6 @@ const BuyerProfile = () => {
               />
               <p className="text-xs text-gray-400 mt-1">Please include City and Pincode in this field.</p>
             </div>
-
-            {/* Buttons */}
             <div className="flex gap-4 pt-4">
               <button
                 type="submit"

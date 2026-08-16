@@ -7,8 +7,6 @@ export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const { loginUser } = useAuth();
-
-  // ✅ Role coming from Navbar modal
   const selectedRole = location.state?.role || "";
 
   const [formData, setFormData] = useState({
@@ -52,9 +50,6 @@ export default function Login() {
       const user = response.data?.data?.user;
       const accessToken=response.data?.data?.accessToken;
       const userRole = user?.Role || user?.role;
-
-      // ✅ Validation: Role Match
-      // If user selected "Farmer" in Navbar, but logs in with a "Buyer" account:
       if (selectedRole && userRole && selectedRole !== userRole) {
         setError(`Access Denied: You are trying to log in as a ${selectedRole.toUpperCase()}, but this account is registered as a ${userRole.toUpperCase()}.`);
         setLoading(false);
@@ -63,9 +58,6 @@ export default function Login() {
 
       setSuccess("Login successful! Welcome back.");
       loginUser(user,accessToken);
-            // localStorage.setItem("accessToken", response.data.data.accessToken);
-
-
       setTimeout(() => {
         redirectByRole(userRole);
       }, 1000);
@@ -83,8 +75,6 @@ export default function Login() {
         <div className="text-center mb-8">
           <h2 className="text-3xl font-extrabold text-green-700">FarmLink</h2>
           <p className="text-gray-500 mt-2">Welcome back! Please login.</p>
-          
-          {/* ✅ Role Context Badge */}
           {selectedRole && (
             <div className="mt-4 inline-block bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
               Role: {selectedRole}

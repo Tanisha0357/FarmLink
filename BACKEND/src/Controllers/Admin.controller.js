@@ -4,7 +4,7 @@ import { ApiResponse } from "../Utils/ApiResponse.js";
 import { User } from "../Models/User.model.js";
 import { Crop } from "../Models/Crop.model.js";
 import { Farmer } from "../Models/Farmer.model.js";
-// Admin Dashboard Stats
+
 const getAdminDashboard = AsyncHandler(async (req, res) => {
   const totalUsers = await User.countDocuments();
   const totalFarmers = await User.countDocuments({ Role: "farmer" });
@@ -20,7 +20,6 @@ const getAdminDashboard = AsyncHandler(async (req, res) => {
   );
 });
 
-//  Get all users
 const getAllUsers = AsyncHandler(async (req, res) => {
   const users = await User.find().select("-Password -RefreshToken").sort({ createdAt: -1 });
 
@@ -29,7 +28,7 @@ const getAllUsers = AsyncHandler(async (req, res) => {
   );
 });
 
-//  Get all crops
+
 const getAllCrops = async (req, res) => {
   try {
     const crops = await Crop.find()
@@ -46,8 +45,6 @@ const getAllCrops = async (req, res) => {
     });
   }
 };
-
-// Delete any crop (admin power)
 const deleteCropByAdmin = AsyncHandler(async (req, res) => {
   const { id } = req.params;
 
@@ -59,7 +56,6 @@ const deleteCropByAdmin = AsyncHandler(async (req, res) => {
   );
 });
 
-// block and un-block farmer
 const toggleBlockUser = AsyncHandler(async (req, res) => {
   const { id } = req.params;
 
@@ -78,7 +74,7 @@ const toggleBlockUser = AsyncHandler(async (req, res) => {
   );
 });
 
-//  Get All Farmers (for verification approval)
+
 const getAllFarmersForAdmin = AsyncHandler(async (req, res) => {
   const farmers = await Farmer.find()
     .populate("userId", "Name EmailId PhoneNo Role")
@@ -89,7 +85,6 @@ const getAllFarmersForAdmin = AsyncHandler(async (req, res) => {
   );
 });
 
-//  Approve / Reject Farmer Verification
 const verifyFarmer = AsyncHandler(async (req, res) => {
   const { id } = req.params; // farmer profile id
   const { verified } = req.body; // true / false

@@ -52,8 +52,7 @@ const FarmerOrders = () => {
       );
 
       toast.success(`Order ${actionText} successfully!`);
-      
-      // Optimistic Update
+
       setOrders(prev => prev.map(order => 
         order._id === orderId ? { ...order, status: status } : order
       ));
@@ -64,8 +63,6 @@ const FarmerOrders = () => {
       setProcessingId(null);
     }
   };
-
-  // Filter Logic
   const filteredOrders = orders.filter(order => {
     if (filterStatus === "all") return true;
     if (filterStatus === "pending") return order.status === "pending";
@@ -73,8 +70,6 @@ const FarmerOrders = () => {
     if (filterStatus === "completed") return ["delivered", "rejected"].includes(order.status);
     return true;
   });
-
-  // Status Badge Component
   const StatusBadge = ({ status }) => {
     const config = {
       pending: { color: "bg-yellow-100 text-yellow-700", icon: Clock, label: "Pending" },
@@ -96,7 +91,6 @@ const FarmerOrders = () => {
       <Toaster position="top-right" />
       
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <div>
             <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
@@ -105,8 +99,6 @@ const FarmerOrders = () => {
             </h1>
             <p className="text-gray-500 mt-1">Manage your incoming crop orders.</p>
           </div>
-
-          {/* Filter Tabs */}
           <div className="bg-white p-1 rounded-lg border border-gray-200 shadow-sm flex overflow-x-auto max-w-full">
             {[
               { id: "all", label: "All" },
@@ -128,8 +120,6 @@ const FarmerOrders = () => {
             ))}
           </div>
         </div>
-
-        {/* Content */}
         {loading ? (
           <div className="flex justify-center py-20">
             <Loader2 className="w-10 h-10 animate-spin text-green-600" />
@@ -147,8 +137,6 @@ const FarmerOrders = () => {
                 key={o._id} 
                 className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow flex flex-col"
               >
-                
-                {/* Card Top: Crop & Date */}
                 <div className="bg-gray-50 px-5 py-4 border-b border-gray-100 flex justify-between items-center">
                   <div className="flex items-center gap-2">
                     <div className="bg-white p-2 rounded-full border border-gray-200">
@@ -164,11 +152,7 @@ const FarmerOrders = () => {
                   </div>
                   <StatusBadge status={o.status} />
                 </div>
-
-                {/* Card Body: Info */}
                 <div className="p-5 flex-1 space-y-4">
-                  
-                  {/* Financials */}
                   <div className="flex justify-between items-center bg-green-50 p-3 rounded-lg border border-green-100">
                     <div>
                       <p className="text-xs text-green-700 font-medium uppercase">Order Value</p>
@@ -181,8 +165,6 @@ const FarmerOrders = () => {
                        <p className="text-lg font-bold text-green-800">{o.quantityKg} <span className="text-sm font-normal">kg</span></p>
                     </div>
                   </div>
-
-                  {/* Buyer Details */}
                   <div className="space-y-2 text-sm">
                     <div className="flex items-start gap-3">
                       <User className="w-4 h-4 text-gray-400 mt-0.5" />
@@ -203,8 +185,6 @@ const FarmerOrders = () => {
                   </div>
 
                 </div>
-
-                {/* Card Bottom: Actions */}
                 <div className="p-4 border-t border-gray-100 bg-gray-50/50">
                   {o.status === "pending" && (
                     <div className="grid grid-cols-2 gap-3">

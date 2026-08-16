@@ -23,14 +23,12 @@ import AddCrop from "./pages/farmer/AddCrop.jsx";
 import FarmerProfile from "./pages/farmer/FarmerProfile.jsx";
 import FarmerOrders from "./pages/farmer/FarmerOrders.jsx";
 
-// Buyer Pages
 import BuyerDashboard from "./pages/buyer/BuyerDashboard";
 import Marketplace from "./pages/buyer/Marketplace.jsx";
 import CropDetails from "./pages/buyer/CropDetails.jsx";
 import BuyerProfile from "./pages/buyer/BuyerProfile.jsx";
 import MyOrders from "./pages/buyer/MyOrder.jsx";
 
-// Admin Pages
 import AdminUsers from "./pages/admin/AdminUsers.jsx";
 import AdminCrops from "./pages/admin/AdminCrops.jsx";
 import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
@@ -53,7 +51,7 @@ export default function App() {
       )}
 
       <Routes>
-        {/* Public Routes */}
+
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -63,8 +61,6 @@ export default function App() {
         <Route path="/chatbot" element={<ChatBot chatLang={chatLang} />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
-
-        {/* Farmer Protected Routes */}
         <Route element={<FarmerProtectedRoute />}>
           <Route path="/farmers/dashboard" element={<FarmerDashboard />} />
           <Route path="/farmers/profile" element={<FarmerProfile />} />
@@ -72,8 +68,6 @@ export default function App() {
           <Route path="/farmers/add-crop" element={<AddCrop />} />
           <Route path="/farmers/orders" element={<FarmerOrders />} />
         </Route>
-
-        {/* Buyer Protected Routes */}
         <Route element={<BuyerProtectedRoute />}>
           <Route path="/buyers/dashboard" element={<BuyerDashboard />} />
           <Route path="/buyers/marketplace" element={<Marketplace />} />
@@ -81,8 +75,6 @@ export default function App() {
           <Route path="/buyers/profile" element={<BuyerProfile />} />
           <Route path="/buyers/orders" element={<MyOrders />} />
         </Route>
-
-        {/* Admin Protected Routes */}
         <Route element={<AdminProtectedRoute />}>
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/users" element={<AdminUsers />} />

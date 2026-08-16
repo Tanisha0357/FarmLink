@@ -33,7 +33,7 @@ export const verifyJWT = AsyncHandler(async (req, res, next) => {
   req.user = user;
   next();
 });
-// refreshToken mechanism
+
 export const refreshAccessToken = AsyncHandler(async (req, res) => {
     const incomingRefreshToken = req.cookies.refreshToken;
 

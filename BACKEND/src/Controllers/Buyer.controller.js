@@ -6,10 +6,7 @@ import { ApiResponse } from "../Utils/ApiResponse.js";
 import { AsyncHandler } from "../Utils/AsyncHandler.js";
 import { Order } from "../Models/Order.model.js";
 import mongoose from "mongoose";
-/**
- * ✅ Create/Update Buyer Profile
- * Only Role === "buyer" can access
- */
+
 const setBuyerProfile = AsyncHandler(async (req, res) => {
   const userId = req.user?._id;
 
@@ -23,9 +20,7 @@ const setBuyerProfile = AsyncHandler(async (req, res) => {
 
   const { Name, PhoneNo, City, State, Pincode, preferredCrops } = req.body;
 
-  // -----------------------------
-  // ✅ Update User Fields
-  // -----------------------------
+
   const userUpdateFields = {};
 
   if (Name && Name.trim().length >= 2) {
@@ -48,9 +43,6 @@ const setBuyerProfile = AsyncHandler(async (req, res) => {
     });
   }
 
-  // -----------------------------
-  // ✅ Update / Create Buyer Profile
-  // -----------------------------
   const buyerProfile = await Buyer.findOneAndUpdate(
     { userId },
     {
@@ -76,9 +68,7 @@ const setBuyerProfile = AsyncHandler(async (req, res) => {
   );
 });
 
-/**
- * ✅ Get Buyer Profile
- */
+
 const getBuyerProfile = AsyncHandler(async (req, res) => {
   const userId = req.user?._id;
 
@@ -98,10 +88,7 @@ const getBuyerProfile = AsyncHandler(async (req, res) => {
     .json(new ApiResponse(200, buyerProfile, "Buyer profile fetched successfully"));
 });
 
-/**
- * ✅ Buyer Dashboard
- * Shows buyer info + some marketplace stats
- */
+
 
 const getBuyerDashboard = AsyncHandler(async (req, res) => {
   const userId = req.user?._id;
@@ -115,7 +102,6 @@ const getBuyerDashboard = AsyncHandler(async (req, res) => {
     throw new ApiError(403, "Buyer access only");
   }
 
-  // ✅ total available crops
   const [totalAvailableCrops, totalOrders, pendingOrders] = await Promise.all([ //optimize db call using promiseAll
   Crop.countDocuments({ status: "available" }),
   Order.countDocuments({ buyerId: userId }),
@@ -137,13 +123,6 @@ const getBuyerDashboard = AsyncHandler(async (req, res) => {
   );
 });
 
-/**
- * ✅ Marketplace: Get All Available Crops
- * Buyer can filter/search
- *
- * Example:
- * /api/v1/buyers/marketplace?search=wheat&location=up&minPrice=10&maxPrice=100
- */
 const getMarketplaceCrops = AsyncHandler(async (req, res) => {
   const userId = req.user?._id;
 
@@ -184,9 +163,7 @@ const getMarketplaceCrops = AsyncHandler(async (req, res) => {
 });
 
 
-/**
- * ✅ Marketplace: Get Single Crop Details
- */
+
 const getCropDetailsForBuyer = AsyncHandler(async (req, res) => {
   const { id } = req.params;
   if (!id) throw new ApiError(400, "Crop id is required");

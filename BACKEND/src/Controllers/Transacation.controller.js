@@ -12,7 +12,6 @@ const getFarmerTransactions = AsyncHandler(async (req, res) => {
     throw new ApiError(403, "Farmer access only");
   }
 
-  // ✅ Only delivered orders are actual earnings
   const transactions = await Order.find({
     farmerId,
     status: "delivered",

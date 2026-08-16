@@ -5,7 +5,7 @@ import { Order } from "../Models/Order.model.js";
 import { Crop } from "../Models/Crop.model.js";
 import { User } from "../Models/User.model.js";
 import mongoose from "mongoose";
-// ✅ Place Order (already done)
+
 const placeOrder = AsyncHandler(async (req, res) => {
   const buyerId = req.user?._id;
 
@@ -48,7 +48,6 @@ const placeOrder = AsyncHandler(async (req, res) => {
     .json(new ApiResponse(201, order, "Order placed successfully ✅"));
 });
 
-// ✅ Buyer: My Orders
 const getMyOrdersBuyer = AsyncHandler(async (req, res) => {
   const buyerId = req.user?._id;
 
@@ -67,7 +66,6 @@ const getMyOrdersBuyer = AsyncHandler(async (req, res) => {
     .json(new ApiResponse(200, orders, "Buyer orders fetched ✅"));
 });
 
-// ✅ Farmer: Orders on my crops
 const getMyOrdersFarmer = AsyncHandler(async (req, res) => {
   const farmerId = req.user?._id;
 
@@ -88,7 +86,7 @@ const getMyOrdersFarmer = AsyncHandler(async (req, res) => {
 
 const updateOrderStatus = AsyncHandler(async (req, res) => {
   const farmerId = req.user?._id;
-  const { id } = req.params; // orderId
+  const { id } = req.params; 
   const { status } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -107,12 +105,10 @@ const updateOrderStatus = AsyncHandler(async (req, res) => {
   const order = await Order.findOne({ _id: id, farmerId });
   if (!order) throw new ApiError(404, "Order not found");
 
-  // ✅ Only pending order can be confirmed/rejected
   if (order.status !== "pending" && status !== "delivered") {
     throw new ApiError(400, `Order already ${order.status}`);
   }
 
-  // ✅ If farmer confirms order => reduce crop quantity
   if (status === "confirmed") {
     const crop = await Crop.findById(order.cropId);
     if (!crop) throw new ApiError(404, "Crop not found");
@@ -123,7 +119,6 @@ const updateOrderStatus = AsyncHandler(async (req, res) => {
 
     crop.quantity = crop.quantity - order.quantityKg;
 
-    // ✅ if quantity becomes 0 => mark as sold
     if (crop.quantity === 0) {
       crop.status = "sold";
     }

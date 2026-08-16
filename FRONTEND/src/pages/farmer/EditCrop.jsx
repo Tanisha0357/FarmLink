@@ -21,13 +21,9 @@ const EditCrop = () => {
   useEffect(() => {
     const fetchCrop = async () => {
       try {
-        // Ideally, you should have an API endpoint like: /api/v1/crops/:id
-        // But we will use the dashboard logic you provided
         const res = await api.get("/api/v1/farmers/dashboard", {
           withCredentials: true,
         });
-
-        // Safe navigation to avoid crashes if data structure differs
         const crops = res.data?.data?.crops || [];
         const crop = crops.find((c) => c._id === id);
 
@@ -71,7 +67,6 @@ const EditCrop = () => {
       await api.put(`/api/v1/crops/crops/${id}`, formData, {
         withCredentials: true,
       });
-      // Redirect on success
       navigate("/farmers/dashboard");
     } catch (error) {
       console.error("Update error:", error);
@@ -81,8 +76,6 @@ const EditCrop = () => {
       setSubmitting(false);
     }
   };
-
-  /* ------------------- ICONS (SVGs) ------------------- */
   const Icons = {
     Leaf: () => <svg className="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>,
     Scale: () => <svg className="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" /></svg>,
@@ -106,8 +99,7 @@ const EditCrop = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-10 px-4 flex items-center justify-center">
       <div className="max-w-2xl w-full bg-white rounded-2xl shadow-xl overflow-hidden">
-        
-        {/* HEADER */}
+
         <div className="bg-green-600 px-8 py-6 flex items-center justify-between">
           <h1 className="text-2xl font-bold text-white flex items-center gap-2">
             🌱 Edit Crop Details
@@ -119,8 +111,6 @@ const EditCrop = () => {
             <Icons.ArrowLeft /> Back
           </button>
         </div>
-
-        {/* BODY */}
         <div className="p-8">
           {errorMsg && (
             <div className="mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded text-red-700 text-sm">
@@ -130,8 +120,6 @@ const EditCrop = () => {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            
-            {/* Field: Crop Name */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">Crop Name</label>
               <div className="relative">
@@ -150,7 +138,6 @@ const EditCrop = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Field: Quantity */}
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-1">Quantity (kg)</label>
                 <div className="relative">
@@ -169,8 +156,6 @@ const EditCrop = () => {
                   />
                 </div>
               </div>
-
-              {/* Field: Price */}
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-1">Price per Kg (₹)</label>
                 <div className="relative">
@@ -190,8 +175,6 @@ const EditCrop = () => {
                 </div>
               </div>
             </div>
-
-            {/* Field: Location */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">Farm Location</label>
               <div className="relative">
@@ -207,8 +190,6 @@ const EditCrop = () => {
                 />
               </div>
             </div>
-
-            {/* Field: Date */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">Available From</label>
               <div className="relative">
@@ -224,8 +205,6 @@ const EditCrop = () => {
                 />
               </div>
             </div>
-
-            {/* ACTION BUTTONS */}
             <div className="flex items-center gap-4 pt-4">
               <button
                 type="button"

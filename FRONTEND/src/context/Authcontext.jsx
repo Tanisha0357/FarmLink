@@ -10,16 +10,12 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [accessToken, setAccessToken] = useState(null);
-
- //login
   const loginUser = (userData, token) => {
     setUser(userData);
     setAccessToken(token);
     setIsLoggedIn(true);
   };
-
-//logout
-  const logoutUser = async () => {
+    const logoutUser = async () => {
     try {
       await api.post("/api/v1/users/logout");
     } catch (err) {
@@ -30,8 +26,6 @@ export const AuthProvider = ({ children }) => {
     setAccessToken(null);
     setIsLoggedIn(false);
   };
-
-  //REFRESH ACCESS TOKEN
   const refreshAccessToken = async () => {
     try {
       const res = await api.post("/api/v1/auth/refresh-token");
@@ -46,8 +40,6 @@ export const AuthProvider = ({ children }) => {
       return null;
     }
   };
-
-  // FETCH USER ON APP LOAD
 const fetchCurrentUser = async () => {
   try {
     const newToken = await refreshAccessToken();
@@ -73,12 +65,7 @@ const fetchCurrentUser = async () => {
   useEffect(() => {
     fetchCurrentUser();
   }, []);
-
-  // ===============================
-  // ✅ AXIOS INTERCEPTORS
-  // ===============================
   useEffect(() => {
-    // 🔹 Request Interceptor (Attach Access Token)
     const requestInterceptor = api.interceptors.request.use(
       (config) => {
         if (accessToken) {
@@ -87,14 +74,10 @@ const fetchCurrentUser = async () => {
         return config;
       }
     );
-
-    // 🔹 Response Interceptor (Handle 401 + Refresh)
     const responseInterceptor = api.interceptors.response.use(
       (response) => response,
       async (error) => {
         const originalRequest = error.config;
-
-        // 🚨 Prevent infinite loop
         if (
           error.response?.status === 401 &&
           !originalRequest._retry &&
@@ -115,8 +98,6 @@ const fetchCurrentUser = async () => {
         return Promise.reject(error);
       }
     );
-
-    // 🔹 Cleanup
     return () => {
       api.interceptors.request.eject(requestInterceptor);
       api.interceptors.response.eject(responseInterceptor);
@@ -138,4 +119,4 @@ const fetchCurrentUser = async () => {
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = ()=> useContext(AuthContext);

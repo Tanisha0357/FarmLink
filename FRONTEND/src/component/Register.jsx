@@ -15,7 +15,7 @@ export default function Register() {
     Password: "",
     Address: "",
     Role: initialRole,
-    adminSecret: "", // ✅ ADDED FIELD
+    adminSecret: "", 
     avatar: null,
   });
 
@@ -41,37 +41,25 @@ export default function Register() {
       setPreview(URL.createObjectURL(file));
     }
   };
-
-  // ✅ ENHANCED VALIDATION LOGIC
-  const validateForm = () => {
+    const validateForm = () => {
     const { Name, PhoneNo, EmailId, Password, Address, Role, adminSecret } = formData;
 
     if (!Name || !PhoneNo || !EmailId || !Password || !Address) {
       return "All fields are mandatory.";
     }
-
-    // ✅ NEW RULE: Admin Secret Check
     if (Role === "admin" && !adminSecret) {
       return "Admin Secret Key is required to register as Admin.";
     }
-
-    // Rule: Name must not contain numbers or special characters
     const nameRegex = /^[a-zA-Z\s]+$/;
     if (!nameRegex.test(Name)) {
       return "Name should only contain letters and spaces (No numbers allowed).";
     }
-
-    // Rule: Phone number must be exactly 10 digits
     if (!/^[0-9]{10}$/.test(PhoneNo)) {
       return "Phone number must be exactly 10 digits.";
     }
-
-    // Rule: Valid Email
     if (!/^\S+@\S+\.\S+$/.test(EmailId)) {
       return "Please enter a valid email address.";
     }
-
-    // Rule: Password must be at least 8 characters
     if (Password.length < 8) {
       return "Password must be at least 8 characters long.";
     }
@@ -94,7 +82,6 @@ export default function Register() {
       setLoading(true);
       const data = new FormData();
       Object.keys(formData).forEach((key) => {
-        // ✅ Only append adminSecret if role is admin
         if (key === "adminSecret" && formData.Role !== "admin") return;
         data.append(key, formData[key]);
       });
@@ -108,7 +95,6 @@ export default function Register() {
       setTimeout(() => navigate("/login"), 2000);
 
     } catch (err) {
-      // ✅ Handle Specific Backend Message for Secret Key Mismatch
       setError(err.response?.data?.message || "Registration failed.");
     } finally {
       setLoading(false);
@@ -127,8 +113,6 @@ export default function Register() {
         {success && <div className="mb-4 p-3 text-sm text-green-700 bg-green-50 border-l-4 border-green-500 rounded font-medium">{success}</div>}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          
-          {/* Name Input */}
           <div>
             <input
               type="text"
@@ -142,7 +126,6 @@ export default function Register() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Phone Input */}
             <div>
               <input
                 type="text"
@@ -155,8 +138,6 @@ export default function Register() {
               />
               <p className="text-[10px] text-gray-400 ml-2 mt-1">* Exactly 10 digits.</p>
             </div>
-
-            {/* Role Select (Read-only styled) */}
             <div>
                 <select
                 name="Role"
@@ -170,8 +151,6 @@ export default function Register() {
                 </select>
             </div>
           </div>
-
-          {/* ✅ NEW ADMIN SECRET FIELD */}
           {formData.Role === "admin" && (
             <div>
               <input
@@ -203,8 +182,6 @@ export default function Register() {
             onChange={handleChange}
             className="w-full border-2 border-gray-100 p-3 rounded-xl focus:border-green-400 outline-none transition"
           />
-
-          {/* Password Input */}
           <div>
             <input
               type="password"
@@ -216,8 +193,6 @@ export default function Register() {
             />
             <p className="text-[10px] text-gray-400 ml-2 mt-1">* Minimum 8 characters required.</p>
           </div>
-
-          {/* Profile Picture */}
           <div className="flex items-center space-x-4 p-3 border-2 border-dashed border-gray-100 rounded-xl bg-gray-50">
             <div className="w-14 h-14 bg-white rounded-full overflow-hidden flex-shrink-0 border-2 border-green-200">
               {preview ? <img src={preview} alt="Preview" className="w-full h-full object-cover" /> : <div className="flex items-center justify-center h-full text-[10px] text-gray-400">No Image</div>}

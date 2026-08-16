@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useTranslation } from 'react-i18next';
 import MarketTicker from "./MarketTicker";
 import { useNavigate } from "react-router-dom";
@@ -8,11 +8,7 @@ const Home = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { isLoggedIn, user } = useAuth();
-
-  // State for the specific "Buyer Login" popup
   const [showBuyerPopup, setShowBuyerPopup] = useState(false);
-
-  // Logic for "Get Started" Button (Existing)
   const handleGetStarted = () => {
     if (isLoggedIn && user) {
       const role = (user.Role || user.role || "").toLowerCase();
@@ -23,16 +19,11 @@ const Home = () => {
       navigate("/register");
     }
   };
-
-  // ✅ NEW LOGIC for "Explore Market"
   const handleExploreMarket = () => {
     const role = (user?.Role || user?.role || "").toLowerCase();
-
-    // If User is already a Buyer, let them through
     if (isLoggedIn && role === "buyer") {
       navigate("/buyers/marketplace");
     }
-    // Otherwise (Guest or Farmer), show the Login Popup
     else {
       setShowBuyerPopup(true);
     }
@@ -41,16 +32,12 @@ const Home = () => {
   const handleNavClick = (path) => {
     navigate(path);
   };
-
-  // Helper to redirect to login as buyer from the popup
   const handleBuyerLoginRedirect = () => {
     navigate("/login", { state: { role: "buyer" } });
   };
 
   return (
     <div className="min-h-screen bg-white font-sans text-gray-800 selection:bg-green-100 selection:text-green-800">
-
-      {/* ================= HERO SECTION ================= */}
       <section className="relative w-full pt-6 pb-24 lg:pt-12 lg:pb-40 overflow-hidden">
         <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-green-50 rounded-full blur-3xl -z-10 opacity-60"></div>
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-50 rounded-full blur-3xl -z-10 opacity-60"></div>
@@ -73,8 +60,6 @@ const Home = () => {
                 >
                   {isLoggedIn ? t('hero.goToDashboard') : t('hero.getStarted')}
                 </button>
-
-                {/* ✅ UPDATED EXPLORE MARKET BUTTON */}
                 <button
                   onClick={handleExploreMarket}
                   className="bg-white border-2 border-gray-100 hover:border-emerald-600 text-gray-700 hover:text-emerald-700 px-8 py-4 rounded-2xl text-lg font-bold transition-all hover:-translate-y-1"
@@ -92,10 +77,7 @@ const Home = () => {
                 <p>Join 1+ farmers today.</p>
               </div>
             </div>
-
-            {/* Image Section */}
             <div className="relative hidden lg:block h-[600px]">
-              {/* Main Backdrop (The big field) */}
               <div className="absolute right-0 top-0 w-5/6 h-[500px] rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white z-10 hover:scale-[1.01] transition-transform duration-700">
                 <img 
                   src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800" 
@@ -104,8 +86,6 @@ const Home = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
               </div>
-
-              {/* Farmers Overlay (Bottom Left) */}
               <div className="absolute left-[-5%] bottom-10 w-1/2 h-64 rounded-[2rem] overflow-hidden shadow-2xl border-[12px] border-white z-20 hover:scale-[1.05] transition-transform duration-500 group">
                 <img 
                   src="https://images.unsplash.com/photo-1590682680695-43b964a3ae17?q=80&w=600" 
@@ -113,8 +93,6 @@ const Home = () => {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
-
-              {/* Crops Floating (Bottom Right) */}
               <div className="absolute right-[-10px] bottom-[5%] w-2/5 h-48 rounded-[1.5rem] overflow-hidden shadow-2xl border-4 border-white z-30 hover:scale-[1.1] transition-transform duration-500">
                 <img 
                   src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?q=80&w=600" 
@@ -122,8 +100,6 @@ const Home = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-
-              {/* Status Badge */}
               <div className="absolute top-[5%] left-[10%] bg-white p-4 rounded-3xl shadow-2xl border border-gray-100 z-40 animate-bounce-slow">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-emerald-100 rounded-2xl flex items-center justify-center text-emerald-600">
@@ -139,8 +115,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      {/* --- MARKET PRICE TICKER --- */}
       <MarketTicker 
         items={[
           { crop: "Wheat", price: "2200", trend: "↑" },
@@ -153,10 +127,6 @@ const Home = () => {
           { crop: "Cotton", price: "7200", trend: "↑" },
         ]} 
       />
-
-      {/* ================= NEW BOTTOM PART ================= */}
-
-      {/* --- HOW IT WORKS (Timeline) --- */}
       <section className="py-24 bg-gray-50 relative">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="text-center max-w-3xl mx-auto mb-16">
@@ -183,8 +153,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      {/* --- WIDE FARM BANNER --- */}
       <div className="w-full h-[400px] relative overflow-hidden">
         <img
           src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1200&q=80"
@@ -195,8 +163,6 @@ const Home = () => {
           <p className="text-white text-4xl md:text-6xl font-black italic opacity-20 select-none">Sustainable Farming • Direct Access • Fair Pricing</p>
         </div>
       </div>
-
-      {/* --- WHAT WE OFFER (Interactive Cards) --- */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="text-center max-w-2xl mx-auto mb-16">
@@ -240,8 +206,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      {/* --- STATISTICS STRIP --- */}
       <section className="bg-gray-900 py-16 text-white overflow-hidden relative">
         <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
@@ -264,8 +228,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      {/* --- CTA CARD --- */}
       <section className="py-24 px-4 bg-white">
         <div className="container mx-auto max-w-5xl">
           <div className="bg-gradient-to-br from-green-600 to-emerald-800 rounded-[3rem] p-12 md:p-20 text-center text-white shadow-2xl relative overflow-hidden">
@@ -294,8 +256,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      {/* --- FOOTER --- */}
       <footer className="bg-gray-900 text-gray-400 py-16 border-t border-gray-800">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid md:grid-cols-4 gap-12 mb-12">
@@ -330,7 +290,7 @@ const Home = () => {
             <div>
               <h4 className="text-white font-bold mb-6">Get in Touch</h4>
               <ul className="space-y-3 text-sm">
-                <li className="flex items-center"><span className="w-6 opacity-50">📧</span> help@kishansetu.in</li>
+                <li className="flex items-center"><span className="w-6 opacity-50">📧</span> help@farmlink.in</li>
                 <li className="flex items-center"><span className="w-6 opacity-50">📞</span> 1800-KISHAN-HELP</li>
                 <li className="flex items-center"><span className="w-6 opacity-50">📍</span> Noida, Uttar Pradesh India</li>
               </ul>
@@ -346,8 +306,6 @@ const Home = () => {
           </div>
         </div>
       </footer>
-
-      {/* ================= ✅ NEW POPUP MODAL ================= */}
       {showBuyerPopup && (
         <div
           className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[9999]"

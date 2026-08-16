@@ -44,15 +44,11 @@ export default function ForgotPassword() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-green-50 px-4">
       <div className="bg-white shadow-2xl rounded-3xl p-8 w-full max-w-md border border-green-100">
-        
-        {/* Header */}
         <div className="text-center mb-8">
           <h2 className="text-3xl font-extrabold text-green-700">FarmLink</h2>
           <p className="text-gray-500 mt-2 font-medium">Recover Your Account</p>
           <p className="text-xs text-gray-400 mt-1">We'll send a password reset link to your email.</p>
         </div>
-
-        {/* Status Messages */}
         {error && (
           <div className="mb-4 p-3 text-sm text-red-700 bg-red-50 border-l-4 border-red-500 rounded font-medium animate-pulse">
             {error}

@@ -31,7 +31,6 @@ const image = getCropImage(cropName);
 
 });
 
-    //for updating crop we need crop_id because each individuals farmers have more than one crops,so finding as a specfic crops to update we required a cropsId so we take it from frontend
 
 const UpdateCrop=AsyncHandler(async(req,res)=>{ 
     const {id}=req.params;
@@ -47,9 +46,8 @@ const UpdateCrop=AsyncHandler(async(req,res)=>{
 
     if(!crop) throw new ApiError(404,"crop not found");
 
-    Object.assign(crop,req.body); //This copies values from req.body into the existing crop object.
-    await crop.save(); //This saves the updated document back to MongoDB.
-
+    Object.assign(crop,req.body); 
+    await crop.save(); 
 
     return res
         .status(200)

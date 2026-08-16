@@ -22,8 +22,6 @@ const CropCard = ({ crop, onRefresh }) => {
       setIsDeleting(false);
     }
   };
-
-  // ✅ Enhanced Badge Styles
   const statusStyles = {
     available: "bg-emerald-100 text-emerald-700 border-emerald-200",
     sold: "bg-rose-100 text-rose-700 border-rose-200",
@@ -35,22 +33,17 @@ const CropCard = ({ crop, onRefresh }) => {
   return (
     <>
       <div className="group bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden">
-        {/* Status Badge Top Right */}
         <div className="absolute top-4 right-4">
           <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border ${statusStyles[crop.status] || statusStyles.pending}`}>
             {crop.status}
           </span>
         </div>
-
-        {/* Icon & Name */}
         <div className="flex items-center gap-3 mb-4">
           <div className="p-2 bg-emerald-50 rounded-lg text-emerald-600">
             <Package size={20} />
           </div>
           <h3 className="font-bold text-slate-800 text-lg capitalize">{crop.cropName}</h3>
         </div>
-
-        {/* Stats Grid */}
         <div className="space-y-3 mb-6">
           <div className="flex items-center text-slate-600 text-sm">
             <Tag size={16} className="mr-2 opacity-70" />
@@ -68,8 +61,6 @@ const CropCard = ({ crop, onRefresh }) => {
             )}
           </div>
         </div>
-
-        {/* Action Buttons */}
         <div className="flex gap-3">
           <button
             disabled={isSoldOut}
@@ -97,8 +88,6 @@ const CropCard = ({ crop, onRefresh }) => {
           </p>
         )}
       </div>
-
-      {/* ✅ CUSTOM DELETE MODAL */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="bg-white rounded-2xl w-full max-w-md p-6 shadow-2xl scale-in-center">

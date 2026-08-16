@@ -2,7 +2,7 @@ import OpenAI from "openai";
 
 const openai = new OpenAI({
   baseURL: "https://text.pollinations.ai/openai",
-  apiKey: "dummy", // pollinations doesn't require a real key
+  apiKey: "dummy", 
 });
 
 async function test() {

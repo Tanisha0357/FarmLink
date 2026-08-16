@@ -26,14 +26,10 @@ const AddCrop = () => {
   });
 
   const [loading, setLoading] = useState(false);
-
-  // Get today's date for min attribute in date picker
   const today = new Date().toISOString().split("T")[0];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    // Validation: Location should not be numbers only
     if (name === "location" && /^\d+$/.test(value)) {
       return; 
     }
@@ -51,7 +47,6 @@ const AddCrop = () => {
     setLoading(true);
 
     try {
-      // Sending data as JSON since no image is involved
       await api.post("/api/v1/crops/crops", formData, {
         withCredentials: true,
       });
@@ -72,7 +67,6 @@ const AddCrop = () => {
       <Toaster position="top-center" />
 
       <div className="max-w-3xl mx-auto">
-        {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
@@ -91,8 +85,6 @@ const AddCrop = () => {
 
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
           <form onSubmit={handleSubmit} className="p-8 space-y-6">
-            
-            {/* Row 1: Crop Name & Location */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Crop Name</label>
@@ -126,8 +118,6 @@ const AddCrop = () => {
                 </div>
               </div>
             </div>
-
-            {/* Row 2: Quantity & Price */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Quantity (Kg)</label>
@@ -164,7 +154,6 @@ const AddCrop = () => {
               </div>
             </div>
 
-            {/* Row 3: Date & Description */}
             <div className="space-y-6">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Harvest Date / Available From</label>
@@ -197,8 +186,6 @@ const AddCrop = () => {
                 </div>
               </div>
             </div>
-
-            {/* Submit Button */}
             <div className="pt-6 border-t border-gray-100 flex items-center justify-end gap-4">
               <button
                 type="button"

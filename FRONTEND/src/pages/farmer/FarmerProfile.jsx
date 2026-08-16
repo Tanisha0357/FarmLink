@@ -5,11 +5,11 @@ import api from "../../Services/Api";
 
 const FarmerProfile = () => {
   const navigate = useNavigate();
-  const location = useLocation(); // 1. Get the current route state
+  const location = useLocation(); 
 
   const [formData, setFormData] = useState({
     LandSize: "",
-    CropGrown: "", // String for input, Array for API
+    CropGrown: "", 
     Experience: "",
     Location: "",
   });
@@ -27,23 +27,18 @@ const FarmerProfile = () => {
     try {
       const res = await api.get("/api/v1/farmers/dashboard", { withCredentials: true });
       const profile = res.data?.data?.farmerProfile;
-
-      // 2. Logic to prevent Infinite Loop
       if (profile) {
         const isEditMode = location.state?.mode === 'edit';
 
         if (isEditMode) {
-          // If in Edit Mode: Fill form and stay here
           setFormData({
             LandSize: profile.LandSize || "",
-            // Convert Array ["Wheat", "Rice"] -> String "Wheat, Rice"
             CropGrown: profile.CropGrown ? profile.CropGrown.join(", ") : "",
             Experience: profile.Experience || "",
             Location: profile.Location || "",
           });
           setIsEditing(true);
         } else {
-          // If NOT in Edit Mode and profile exists: Redirect to dashboard
           navigate("/farmers/dashboard");
         }
       }
@@ -66,23 +61,19 @@ const FarmerProfile = () => {
     // Prepare Payload
     const payload = {
       ...formData,
-      // Convert String "Wheat, Rice" -> Array ["Wheat", "Rice"]
       CropGrown: formData.CropGrown.split(",").map((c) => c.trim()).filter(Boolean),
     };
 
     try {
-      // 3. Use PUT if editing, POST if creating (Adjust URL if your backend requires a different endpoint for update)
+    
       const method = isEditing ? 'put' : 'post';
-      // If your API uses the same endpoint for both, keep it as 'post' or adjust accordingly.
-      // Assuming /profile handles upsert or separate endpoint:
+     
       const url = "/api/v1/farmers/profile"; 
-      
-      // If using standard REST, update might be api.put
+     
       await api.post(url, payload, { withCredentials: true });
 
       setMessage({ type: "success", text: "✅ Profile saved successfully!" });
-      
-      // Short delay before redirect
+     
       setTimeout(() => {
         navigate("/farmers/dashboard");
       }, 1500);
@@ -106,8 +97,6 @@ const FarmerProfile = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-2xl shadow-xl border border-gray-100">
-        
-        {/* Header */}
         <div className="text-center">
           <div className="mx-auto h-16 w-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
             <User className="h-8 w-8 text-green-600" />
@@ -120,7 +109,6 @@ const FarmerProfile = () => {
           </p>
         </div>
 
-        {/* Form */}
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           
           {message.text && (
@@ -130,8 +118,7 @@ const FarmerProfile = () => {
           )}
 
           <div className="rounded-md shadow-sm space-y-4">
-            
-            {/* Land Size */}
+        
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Land Size (Acres)</label>
               <div className="relative">
@@ -150,7 +137,6 @@ const FarmerProfile = () => {
               </div>
             </div>
 
-            {/* Crops */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Crops Grown</label>
               <div className="relative">
@@ -170,7 +156,6 @@ const FarmerProfile = () => {
               </div>
             </div>
 
-            {/* Experience */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Farming Experience (Years)</label>
               <div className="relative">
@@ -189,7 +174,6 @@ const FarmerProfile = () => {
               </div>
             </div>
 
-            {/* Location */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Location / Village</label>
               <div className="relative">
@@ -211,7 +195,6 @@ const FarmerProfile = () => {
           </div>
 
           <div className="flex gap-4">
-             {/* Cancel Button (Only if editing) */}
              {isEditing && (
               <button
                 type="button"

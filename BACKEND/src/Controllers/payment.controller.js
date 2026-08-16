@@ -23,7 +23,6 @@ try {
   console.error("❌ Razorpay Initialization Error:", error.message);
 }
 
-// ✅ 1) Create Razorpay order
 export const createPaymentOrder = AsyncHandler(async (req, res) => {
   const { orderId } = req.body;
 
@@ -36,7 +35,6 @@ export const createPaymentOrder = AsyncHandler(async (req, res) => {
     throw new ApiError(400, "Order already paid");
   }
 
-  // --- MOCK PAYMENT MODE (IF NO KEYS PROVIDED) ---
   if (!razorpay) {
     const dummyOrderId = `order_dummy_${Date.now()}`;
     order.razorpayOrderId = dummyOrderId;
@@ -51,7 +49,7 @@ export const createPaymentOrder = AsyncHandler(async (req, res) => {
       }, "Mock Payment order created ✅")
     );
   }
-  // ------------------------------------------------
+
 
   const razorpayOrder = await razorpay.orders.create({
     amount: order.totalPrice * 100, // ₹ -> paise
@@ -75,7 +73,7 @@ export const createPaymentOrder = AsyncHandler(async (req, res) => {
   );
 });
 
-// ✅ 2) Verify payment and mark paid
+
 export const verifyPayment = AsyncHandler(async (req, res) => {
   const { orderId, razorpayOrderId, razorpayPaymentId, razorpaySignature } =
     req.body;
@@ -87,7 +85,6 @@ export const verifyPayment = AsyncHandler(async (req, res) => {
   const order = await Order.findById(orderId);
   if (!order) throw new ApiError(404, "Order not found");
 
-  // --- MOCK PAYMENT MODE (IF NO KEYS PROVIDED) ---
   if (razorpayPaymentId === "pay_dummy_123456" || !razorpay) {
     order.paymentStatus = "paid";
     order.razorpayPaymentId = razorpayPaymentId;
@@ -96,7 +93,7 @@ export const verifyPayment = AsyncHandler(async (req, res) => {
 
     return res.status(200).json(new ApiResponse(200, order, "Mock Payment verified ✅"));
   }
-  // ------------------------------------------------
+
 
   const sign = razorpayOrderId + "|" + razorpayPaymentId;
 

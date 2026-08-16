@@ -17,7 +17,7 @@ import {
   Search
 } from "lucide-react";
 import { Navigate, useNavigate } from "react-router-dom";
-// --- Animation Variants ---
+
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
@@ -38,9 +38,9 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-800 overflow-x-hidden">
       
-      {/* --- HERO SECTION --- */}
+    
       <section className="relative bg-gradient-to-b from-green-900 to-green-800 text-white pt-24 pb-32 px-6 overflow-hidden">
-        {/* Background Pattern */}
+      
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
         
         <div className="max-w-6xl mx-auto text-center relative z-10">
@@ -61,8 +61,6 @@ export default function AboutPage() {
           </motion.div>
         </div>
       </section>
-
-      {/* --- MISSION & VISION --- */}
       <section className="py-16 px-6 -mt-20 relative z-20">
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
           <VisionCard 
@@ -83,7 +81,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* --- PLATFORM ARCHITECTURE FLOW --- */}
       <section className="py-16 px-6 bg-white">
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-12 text-slate-900">Platform Architecture</h2>
@@ -103,14 +100,12 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* --- INTERACTIVE WORKFLOWS (Tabs) --- */}
       <section className="py-20 px-6 bg-green-50/50">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold mb-4">How It Works</h2>
             <p className="text-slate-600">Select a role to see the step-by-step journey.</p>
             
-            {/* Tab Switcher */}
             <div className="flex justify-center mt-8 gap-4">
               <button 
                 onClick={() => setActiveTab("farmer")}
@@ -135,7 +130,6 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Workflow Content */}
           <div className="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-100">
             {activeTab === "farmer" ? (
               <motion.div 
@@ -147,7 +141,7 @@ export default function AboutPage() {
                 <h3 className="text-2xl font-bold text-green-800 mb-6">Farmer Workflow 🌾</h3>
                 <div className="grid md:grid-cols-2 gap-10">
                   <div className="space-y-8 relative">
-                    {/* Vertical Line */}
+                 
                     <div className="absolute left-4 top-2 bottom-2 w-0.5 bg-green-100"></div>
                     
                     <WorkflowStep 
@@ -197,7 +191,6 @@ export default function AboutPage() {
                 <h3 className="text-2xl font-bold text-blue-800 mb-6">Buyer Workflow 🛒</h3>
                 <div className="grid md:grid-cols-2 gap-10">
                   <div className="space-y-8 relative">
-                    {/* Vertical Line */}
                     <div className="absolute left-4 top-2 bottom-2 w-0.5 bg-blue-100"></div>
                     
                     <WorkflowStep 
@@ -246,13 +239,10 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-      {/* --- WHY DIFFERENT --- */}
       <section className="py-20 px-6 max-w-5xl mx-auto">
         <h2 className="text-3xl font-bold text-center mb-12">Why <span className="text-green-600">FarmLink</span> is Different</h2>
         
         <div className="grid md:grid-cols-2 gap-8">
-          {/* Traditional Way */}
           <div className="bg-slate-100 p-8 rounded-2xl border border-slate-200">
             <h3 className="text-xl font-bold text-slate-600 mb-6 flex items-center gap-2">
               <XCircle className="text-red-500" /> Traditional Platforms
@@ -264,8 +254,6 @@ export default function AboutPage() {
               <li className="flex gap-3"><XCircle className="w-5 h-5 text-red-400 flex-shrink-0" /> Poor or non-existent order tracking</li>
             </ul>
           </div>
-
-          {/* FarmLink Way */}
           <div className="bg-green-50 p-8 rounded-2xl border border-green-200 shadow-lg">
             <h3 className="text-xl font-bold text-green-700 mb-6 flex items-center gap-2">
               <CheckCircle2 className="text-green-600" /> The FarmLink Way
@@ -279,8 +267,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-      {/* --- HOW IT HELPS (Benefits) --- */}
       <section className="py-16 px-6 bg-slate-900 text-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">How We Help You</h2>
@@ -339,9 +325,6 @@ export default function AboutPage() {
     </div>
   );
 }
-
-// --- SUB COMPONENTS ---
-
 function VisionCard({ icon, title, desc }) {
   return (
     <motion.div 

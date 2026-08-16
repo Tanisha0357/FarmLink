@@ -46,11 +46,7 @@ const CropDetails = () => {
       setLoading(false);
     }
   };
-
-  /* ------------------------------------------------------------
-     🖼️ HELPER: Get Image based on Crop Name (Same as Card)
-     ------------------------------------------------------------ */
-  const getCropImage = (name) => {
+    const getCropImage = (name) => {
     const cropName = name?.toLowerCase() || "";
     if (cropName.includes("wheat")) return "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=800&q=80";
     if (cropName.includes("rice") || cropName.includes("paddy")) return "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=800&q=80";
@@ -60,7 +56,6 @@ const CropDetails = () => {
     if (cropName.includes("corn") || cropName.includes("maize")) return "https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=800&q=80";
     if (cropName.includes("cotton")) return "https://images.unsplash.com/photo-1594301980637-772921ba0989?w=800&q=80";
     if (cropName.includes("sugarcane")) return "https://images.unsplash.com/photo-1596450523825-72439f041cb6?w=800&q=80";
-    // Fallback Generic Farm Image
     return "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80";
   };
 
@@ -87,12 +82,8 @@ const CropDetails = () => {
       );
 
       const { razorpayOrderId, amount, currency, isMock } = payRes.data.data;
-
-      // --- MOCK DEMO PAYMENT (If keys not configured) ---
       if (isMock || !import.meta.env.VITE_RAZORPAY_KEY_ID || import.meta.env.VITE_RAZORPAY_KEY_ID === "dummy_key_id") {
         toast.success("Initiating Secure Checkout...");
-        
-        // Simulating the time a user takes to pay
         setTimeout(async () => {
           try {
             await api.post(
@@ -113,12 +104,10 @@ const CropDetails = () => {
             toast.error("Verification failed");
             setProcessing(false);
           }
-        }, 1500); // 1.5 second simulated delay
+        }, 1500); 
 
         return;
       }
-      // --------------------------------------------------
-
       if (!window.Razorpay) {
         setProcessing(false);
         return toast.error("Payment system not loaded.");
@@ -187,8 +176,6 @@ const CropDetails = () => {
       <Toaster position="top-center" />
 
       <div className="max-w-6xl mx-auto">
-        
-        {/* Navigation */}
         <button
           onClick={() => navigate(-1)}
           className="flex items-center text-gray-500 hover:text-green-700 mb-6 transition-colors font-medium"
@@ -197,12 +184,8 @@ const CropDetails = () => {
         </button>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
-          {/* LEFT: IMAGE & DETAILS */}
           <div className="lg:col-span-2 space-y-6">
             <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-              
-              {/* 🖼️ Main Image with Gradient Overlay */}
               <div className="relative h-72 sm:h-96 w-full">
                 <img 
                   src={crop.image || getCropImage(crop.cropName)} 
@@ -221,7 +204,6 @@ const CropDetails = () => {
               </div>
 
               <div className="p-8">
-                {/* Farmer / Seller Info */}
                 <div className="flex items-center justify-between p-4 bg-green-50 rounded-2xl border border-green-100 mb-8">
                    <div className="flex items-center gap-4">
                       <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-green-700 shadow-sm">
@@ -266,8 +248,6 @@ const CropDetails = () => {
               </div>
             </div>
           </div>
-
-          {/* RIGHT: CHECKOUT CARD */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-8 sticky top-24">
               <div className="flex justify-between items-center mb-6">

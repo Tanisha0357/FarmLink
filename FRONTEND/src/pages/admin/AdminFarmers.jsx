@@ -9,7 +9,7 @@ import {
   User,
   ShieldCheck,
   Loader2,
-  Sprout // Added Sprout icon for crops
+  Sprout 
 } from "lucide-react";
 
 import AdminSidebar from "../../component/admin/AdminSlidebar";
@@ -19,7 +19,7 @@ const AdminFarmers = () => {
   const [farmers, setFarmers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterStatus, setFilterStatus] = useState("pending"); // pending, verified, rejected, all
+  const [filterStatus, setFilterStatus] = useState("pending"); 
   const [processingId, setProcessingId] = useState(null);
 
   useEffect(() => {
@@ -45,8 +45,6 @@ const AdminFarmers = () => {
     try {
       await verifyFarmer(id, status);
       toast.success(`Farmer profile ${actionText} successfully`);
-
-      // Optimistic Update: Update local state without refetching
       setFarmers((prev) =>
         prev.map((f) => (f._id === id ? { ...f, verified: status } : f))
       );
@@ -57,15 +55,11 @@ const AdminFarmers = () => {
       setProcessingId(null);
     }
   };
-
-  // Filter Logic
   const filteredFarmers = farmers.filter((f) => {
     // 1. Search Filter
     const searchMatch =
       f.userId?.Name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       f.userId?.EmailId?.toLowerCase().includes(searchTerm.toLowerCase());
-
-    // 2. Tab Filter
     let statusMatch = true;
     if (filterStatus === "pending") statusMatch = !f.verified;
     if (filterStatus === "verified") statusMatch = f.verified === true;
@@ -80,7 +74,6 @@ const AdminFarmers = () => {
       <Toaster position="top-right" />
 
       <div className="flex-1 p-8 h-screen overflow-y-auto">
-        {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
             <ShieldCheck className="text-green-600" />
@@ -90,10 +83,7 @@ const AdminFarmers = () => {
             Review and approve farmer account requests.
           </p>
         </div>
-
-        {/* Controls: Tabs & Search */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
-          {/* Status Tabs */}
           <div className="bg-white p-1 rounded-lg border border-gray-200 shadow-sm flex">
             {[
               { id: "pending", label: "Pending Review" },
@@ -113,8 +103,6 @@ const AdminFarmers = () => {
               </button>
             ))}
           </div>
-
-          {/* Search Bar */}
           <div className="relative w-full md:w-72">
             <input
               type="text"
@@ -126,8 +114,6 @@ const AdminFarmers = () => {
             <Search className="absolute left-3 top-3 text-gray-400 w-4 h-4" />
           </div>
         </div>
-
-        {/* Content Area */}
         {loading ? (
           <div className="flex justify-center items-center py-20">
             <Loader2 className="w-10 h-10 animate-spin text-green-600" />
@@ -151,7 +137,6 @@ const AdminFarmers = () => {
                 key={f._id}
                 className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-md transition-all"
               >
-                {/* Card Header */}
                 <div className="p-6 border-b border-gray-50">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-4">
@@ -178,8 +163,6 @@ const AdminFarmers = () => {
                     )}
                   </div>
                 </div>
-
-                {/* Card Body */}
                 <div className="p-6 space-y-3 flex-1">
                   <div className="flex items-center text-sm text-gray-600">
                     <Mail className="w-4 h-4 mr-3 text-gray-400" />
@@ -202,8 +185,6 @@ const AdminFarmers = () => {
                     </span>
                   </div>
                 </div>
-
-                {/* Card Footer / Actions */}
                 <div className="p-4 bg-gray-50 border-t border-gray-100 grid grid-cols-2 gap-3">
                   {f.verified ? (
                     <button

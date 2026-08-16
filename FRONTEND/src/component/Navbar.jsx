@@ -13,20 +13,9 @@ const Navbar = ({ setChatLang }) => {
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [showRoleModal, setShowRoleModal] = useState(false);
   const [role, setRole] = useState("");
-
-  // ------------------------------------------------------------------
-  // ⚡️ PERFORMANCE OPTIMIZATION
-  // ------------------------------------------------------------------
-  // 1. Check if JavaScript can see any auth cookies (non-HttpOnly)
   const hasCookie = document.cookie.includes("refreshToken") || document.cookie.includes("accessToken");
-  
-  // 2. Check if there is a token in LocalStorage (fallback)
   const hasLocalToken = localStorage.getItem("token") || localStorage.getItem("user");
-
-  // 3. Logic: Only show the "Loading Skeleton" if we suspect data exists.
-  //    If NO data exists locally, we force the Login button to show INSTANTLY.
   const shouldWait = (hasCookie || hasLocalToken) && loading;
-  // ------------------------------------------------------------------
 
   const userRole = (user?.Role || user?.role || "").toLowerCase();
 
@@ -104,8 +93,6 @@ const Navbar = ({ setChatLang }) => {
               {link.name}
             </Link>
           ))}
-
-          {/* Language Selector */}
           <div className="relative">
             <button
               onClick={() => setIsLangOpen(!isLangOpen)}
@@ -129,9 +116,6 @@ const Navbar = ({ setChatLang }) => {
               </div>
             )}
           </div>
-
-          {/* ⚡️ AUTH BUTTON (OPTIMIZED) */}
-          {/* Only show Skeleton if we FOUND a cookie/token locally AND API is still loading */}
           {shouldWait ? (
             <div className="w-28 h-10 bg-gray-200 rounded-lg animate-pulse" />
           ) : isLoggedIn ? (
@@ -152,8 +136,6 @@ const Navbar = ({ setChatLang }) => {
           )}
 
         </div>
-
-        {/* Mobile Hamburger */}
         <button
           className="md:hidden text-gray-600"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -161,8 +143,6 @@ const Navbar = ({ setChatLang }) => {
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" /></svg>
         </button>
       </div>
-
-      {/* Role Modal */}
       {showRoleModal && (
         <div
           className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[9999]"

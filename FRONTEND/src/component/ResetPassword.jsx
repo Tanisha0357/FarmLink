@@ -16,8 +16,6 @@ const ResetPassword = () => {
     e.preventDefault();
     setError("");
     setSuccess("");
-
-    // ✅ Validation Rules
     if (!newPassword || !confirmPassword) {
       setError("Please fill in both password fields.");
       return;
@@ -42,8 +40,6 @@ const ResetPassword = () => {
       });
 
       setSuccess("✅ Password reset successful! Redirecting to login...");
-      
-      // Redirect after 2.5 seconds
       setTimeout(() => {
         navigate("/login");
       }, 2500);

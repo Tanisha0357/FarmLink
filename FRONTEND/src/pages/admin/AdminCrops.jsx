@@ -20,8 +20,6 @@ const AdminCrops = () => {
   const [crops, setCrops] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  
-  // New state to track which specific button is being pressed
   const [deletingId, setDeletingId] = useState(null);
 
   useEffect(() => {
@@ -43,24 +41,21 @@ const AdminCrops = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to permanently remove this crop listing?")) return;
 
-    setDeletingId(id); // Set the specific button to loading state
+    setDeletingId(id); 
     
     try {
       await deleteCropByAdmin(id);
       toast.success("Crop removed successfully");
-      
-      // OPTIMISTIC UPDATE: Remove from UI immediately without re-fetching API
-      // This prevents the whole screen from flashing loading skeletons
       setCrops((prevCrops) => prevCrops.filter((crop) => crop._id !== id));
       
     } catch (error) {
       toast.error("Failed to delete crop");
     } finally {
-      setDeletingId(null); // Reset button state
+      setDeletingId(null); 
     }
   };
 
-  // Filter crops based on search
+  
   const filteredCrops = crops.filter((c) =>
     c.cropName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     c.location?.toLowerCase().includes(searchTerm.toLowerCase())
@@ -72,8 +67,6 @@ const AdminCrops = () => {
       <Toaster position="top-right" />
 
       <div className="flex-1 p-8 h-screen overflow-y-auto">
-        
-        {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-8 gap-4">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
@@ -103,8 +96,6 @@ const AdminCrops = () => {
             </button>
           </div>
         </div>
-
-        {/* Content Area */}
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3, 4, 5, 6].map((n) => (
@@ -124,7 +115,6 @@ const AdminCrops = () => {
                 key={c._id}
                 className="group bg-white rounded-2xl shadow-sm hover:shadow-lg border border-gray-100 overflow-hidden transition-all duration-300 flex flex-col"
               >
-                {/* Image Area */}
                 <div className="h-48 bg-gray-100 relative overflow-hidden">
                   {c.image || c.imageUrl ? (
                     <img
@@ -137,8 +127,6 @@ const AdminCrops = () => {
                       <Leaf className="w-12 h-12 opacity-50" />
                     </div>
                   )}
-                  
-                  {/* Status Badge */}
                   <div className="absolute top-3 right-3">
                     <span className={`px-3 py-1 text-xs font-bold uppercase tracking-wide rounded-full shadow-sm backdrop-blur-md ${
                       c.quantity > 0 
@@ -149,8 +137,6 @@ const AdminCrops = () => {
                     </span>
                   </div>
                 </div>
-
-                {/* Details Body */}
                 <div className="p-5 flex-1 flex flex-col">
                   <div className="flex justify-between items-start mb-2">
                     <h2 className="text-lg font-bold text-gray-900 capitalize truncate" title={c.cropName}>
@@ -182,8 +168,6 @@ const AdminCrops = () => {
                       </span>
                     </div>
                   </div>
-
-                  {/* Enhanced Delete Button */}
                   <button
                     onClick={() => handleDelete(c._id)}
                     disabled={deletingId === c._id}

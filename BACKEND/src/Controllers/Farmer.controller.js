@@ -64,22 +64,19 @@ const getFarmerProfile=AsyncHandler(async(req,res)=>{
 const getFarmerDashboard = AsyncHandler(async (req, res) => {
   const userId = req.user._id;
 
-  // 1️⃣ Validate user
+
   const user = await User.findById(userId).select("Name Role Avatar");
 
   if (!user || user.Role !== "farmer") {
     throw new ApiError(403, "Farmer access only");
   }
 
-  // 2️⃣ Fetch farmer profile
   const farmerProfile = await Farmer.findOne({ userId });
 
-  // 3️⃣ Fetch crops listed by farmer
   const crops = await Crop.find({ farmerId: userId }).sort({
     createdAt: -1
   });
 
-  // 4️⃣ Calculate stats
   const totalCrops = crops.length;
   const activeCrops = crops.filter(
     (crop) => crop.status === "available"
@@ -89,8 +86,6 @@ const getFarmerDashboard = AsyncHandler(async (req, res) => {
 
 const earnings = deliveredOrders.reduce((sum, o) => sum + (o.totalPrice || 0), 0);
 
-
-  // 5️⃣ Send response (MATCHES FRONTEND)
   return res.status(200).json(
     new ApiResponse(
       200,

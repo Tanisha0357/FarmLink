@@ -16,6 +16,7 @@ app.use(
   cors({
     origin: [
       "https://kishan-setu-8yif.vercel.app",
+      "https://farm-link-blush.vercel.app",
       "http://localhost:5173",
       "http://localhost:5174",
       "http://localhost:5175"
@@ -23,10 +24,6 @@ app.use(
     credentials: true
   })
 );
-
-
-
-
 
 
 import userRouter from "./Routers/User.routes.js";
@@ -63,7 +60,6 @@ app.use("/api/v1/admin", adminRoutes);
 app.use("/api/v1/schemes", schemeRoutes);
 
 
-//global error middleware that are help to send clear and concise error message to frontend
 app.use((err, req, res, next) => {
   res.status(err.statusCode || 500).json({
     success: false,

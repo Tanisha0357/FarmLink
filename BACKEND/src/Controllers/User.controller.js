@@ -4,10 +4,6 @@ import {ApiError} from "../Utils/ApiError.js"
 import {ApiResponse} from "../Utils/ApiResponse.js"
 import mongoose from "mongoose"
 import { uploadonCloudinary } from "../Utils/Cloudinary.js"
-
-
-
-
 const generateAccessAndRefreshToken = async (userId) => {
     try {
         const user = await User.findById(userId);
@@ -24,8 +20,6 @@ const generateAccessAndRefreshToken = async (userId) => {
         throw new ApiError(500, error.message || "Token generation failed");
     }
 };
-
-
 const register= AsyncHandler(async(req,res,next)=>{
     const {Name,PhoneNo,EmailId,Password,Role,Address,adminSecret}=req.body
 
@@ -36,9 +30,7 @@ const register= AsyncHandler(async(req,res,next)=>{
         if(!adminSecret){
             throw new ApiError(400,"Field is mandatory");
         }
-    // Check if the provided secret matches your .env ADMIN_SECRET_KEY
     if (adminSecret !== process.env.ADMIN_SECRET_KEY) {
-      //  SEND THE SPECIFIC ERROR MESSAGE HERE
       throw new ApiError(
         403, 
         "You are not a verified user to become admin. Please contact on kishansetu.care@gmail.com"
@@ -84,21 +76,11 @@ const register= AsyncHandler(async(req,res,next)=>{
     
 })
 
-
-//login
-// verify with id,phoneno & password
-//
-
 const login= AsyncHandler(async(req,res,next)=>{
     const {identifier,Password}=req.body;
     
     if(!identifier) throw new ApiError(401,"EmailId or PhoneNo is required");
     if(!Password) throw new ApiError(401,"Password is required")
-    // const user=await User.findOne(
-    //     {
-    //     $or:[{EmailId},{PhoneNo}]
-    //     }
-    // );
     
     let query;
 
@@ -122,7 +104,6 @@ const login= AsyncHandler(async(req,res,next)=>{
 
     const {accessToken,refreshToken}= await generateAccessAndRefreshToken(user._id);
     const loggedInUser=await User.findById(user._id).select(" -Password -RefreshToken")
-    //sending into coolkies
     const isProduction = process.env.NODE_ENV === "production";
 
     const options={
@@ -133,7 +114,6 @@ const login= AsyncHandler(async(req,res,next)=>{
 
     return res
     .status(200)
-    // .cookie("accessToken", accessToken, options)
     .cookie("refreshToken", refreshToken, options)
 
     .json(
@@ -147,7 +127,6 @@ const login= AsyncHandler(async(req,res,next)=>{
 })
 
 const logout= AsyncHandler(async(req,res,next)=>{
-    //remove cookie,refresh,accesstoken
    await  User.findByIdAndUpdate(
         req.user._id,
         {

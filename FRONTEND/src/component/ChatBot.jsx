@@ -12,13 +12,9 @@ const ChatBot = ({ chatLang }) => {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const chatEndRef = useRef(null);
-
-  /* Auto Scroll to Bottom */
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
-
-  /* Handle Send */
   const handleSend = async () => {
     if (!input.trim() || loading) return;
 
@@ -46,17 +42,11 @@ const ChatBot = ({ chatLang }) => {
   };
 
   return (
-    // MAIN PAGE CONTAINER - Gray background to make the chat card pop
     <div className="flex-1 bg-gray-50 flex items-center justify-center p-2 sm:p-4 h-full min-h-[500px]">
-      
-      {/* CHAT CARD */}
       <div className="w-full max-w-4xl bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col h-full border border-gray-200">
-        
-        {/* 1. HEADER */}
         <div className="bg-white border-b border-gray-100 p-4 flex items-center justify-between sticky top-0 z-10">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-              {/* Bot Icon */}
               <span className="text-xl">🤖</span>
             </div>
             <div>
@@ -74,15 +64,12 @@ const ChatBot = ({ chatLang }) => {
             Clear Chat
           </button>
         </div>
-
-        {/* 2. MESSAGES AREA */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6 bg-gray-50/50 scroll-smooth">
           {messages.map((msg, idx) => (
             <div
               key={idx}
               className={`flex gap-3 ${msg.from === "user" ? "flex-row-reverse" : "flex-row"}`}
             >
-              {/* Avatar */}
               <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
                 msg.from === "user" ? "bg-green-600 text-white" : "bg-green-100 text-green-700"
               }`}>
@@ -94,8 +81,6 @@ const ChatBot = ({ chatLang }) => {
                    <span className="text-sm">🤖</span>
                  )}
               </div>
-
-              {/* Bubble */}
               <div
                 className={`max-w-[85%] sm:max-w-[75%] px-5 py-3.5 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap shadow-sm ${
                   msg.from === "user"
@@ -107,8 +92,6 @@ const ChatBot = ({ chatLang }) => {
               </div>
             </div>
           ))}
-
-          {/* Loading Indicator */}
           {loading && (
             <div className="flex gap-3">
               <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center shrink-0">
@@ -123,8 +106,6 @@ const ChatBot = ({ chatLang }) => {
           )}
           <div ref={chatEndRef} />
         </div>
-
-        {/* 3. INPUT FOOTER */}
         <div className="p-4 bg-white border-t border-gray-100">
           <div className="flex items-center gap-2 bg-gray-50 rounded-full border border-gray-200 px-2 py-2 focus-within:ring-2 focus-within:ring-green-500/50 focus-within:border-green-500 transition-all shadow-sm">
             <input
